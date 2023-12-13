@@ -9,60 +9,54 @@
 //   </React.StrictMode>
 // );
 
-import { legacy_createStore as createStore } from "redux";
+import { legacy_createStore as createStore, combineReducers } from "redux";
 
-const incrementCount = ({ incrementBy = 1 } = {}) => {
-  return {
-    type: "INCREMENT",
-    incrementBy: incrementBy,
-  };
+const demoState = {
+  expenses: [
+    {
+      id: "21fw",
+      description: "January Rent",
+      note: "This was the final payment",
+      amount: 54400,
+      createdAt: 0,
+    },
+  ],
+  filters: {
+    text: "rent",
+    sortBy: "date", // 'date' or 'amount'
+    startDate: undefined,
+    endDate: undefined,
+  },
 };
 
-const decrementCount = ({ decrementBy = 1 } = {}) => {
-  return {
-    type: "DECREMENT",
-    decrementBy: decrementBy,
-  };
-};
+const expensesReducerDefaultState = [];
 
-const resetCount = () => {
-  return {
-    type: "RESET",
-  };
-};
-
-const setCount = ({ count }) => {
-  return {
-    type: "SET",
-    count: count,
-  };
-};
-
-const store = createStore((state = { count: 0 }, action) => {
+const expensesReducer = (state = expensesReducerDefaultState, action) => {
   switch (action.type) {
-    case "INCREMENT":
-      return { count: state.count + action.incrementBy };
-    case "DECREMENT":
-      return { count: state.count - action.decrementBy };
-    case "RESET":
-      return { count: 0 };
-    case "SET":
-      return { count: action.count };
     default:
       return state;
   }
-});
+};
 
-const unsubscribe = store.subscribe(() => {
-  console.log(store.getState());
-});
+const filtersReducerDefaultState = {
+  text: "",
+  sortBy: "date",
+  startDate: undefined,
+  endDate: undefined,
+};
 
-store.dispatch(incrementCount({ incrementBy: 4 }));
+const filtersReducer = (state = filtersReducerDefaultState, action) => {
+  switch (action.type) {
+    default:
+      return state;
+  }
+};
 
-store.dispatch(decrementCount({ decrementBy: 2 }));
+const store = createStore(
+  combineReducers({
+    expenses: expensesReducer,
+    filters: filtersReducer,
+  })
+);
 
-store.dispatch(resetCount());
-
-store.dispatch(decrementCount());
-
-store.dispatch(setCount({ count: 101 }));
+console.log(store.getState());
