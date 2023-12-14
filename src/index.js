@@ -17,12 +17,6 @@ import getVisibleExpenses from "./selectors/expenses";
 
 const store = configureStore();
 
-store.subscribe(() => {
-  const state = store.getState();
-  const visibleExpenses = getVisibleExpenses(state.expenses, state.filters);
-  console.log(visibleExpenses);
-});
-
 const expense1 = store.dispatch(
   addExpense({ description: "Rent", amount: 100 })
 );
@@ -32,6 +26,8 @@ const expense2 = store.dispatch(
 store.dispatch(
   editExpense({ id: expense2.expense.id, updates: { amount: 500 } })
 );
+
+// store.dispatch(setTextFilter({ text: "Coffee" }));
 
 const jsx = (
   <Provider store={store}>
