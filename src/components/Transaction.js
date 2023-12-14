@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from "react-redux";
+import { removeExpense } from "../actions/expenses";
 
 //Money formatter function
 function moneyFormatter(num) {
@@ -16,20 +18,21 @@ function moneyFormatter(num) {
   );
 }
 
-export const Transaction = ({ transaction }) => {
-  // const { deleteTransaction } = useContext(GlobalContext);
-
-  const sign = transaction.amount < 0 ? "-" : "+";
+const Transaction = (props) => {
+  console.log(props);
+  const sign = props.amount < 0 ? "-" : "+";
 
   return (
-    <li className={transaction.amount < 0 ? "minus" : "plus"}>
-      {transaction.text}{" "}
+    <li className={props.amount < 0 ? "minus" : "plus"}>
+      {props.text}{" "}
       <span>
         {sign}
-        {moneyFormatter(transaction.amount)}
+        {moneyFormatter(props.amount)}
       </span>
       <button
-        // onClick={() => deleteTransaction(transaction.id)}
+        onClick={() => {
+          props.dispatch(removeExpense({ id: props.id }));
+        }}
         className="delete-btn"
       >
         x
@@ -37,3 +40,5 @@ export const Transaction = ({ transaction }) => {
     </li>
   );
 };
+
+export default connect()(Transaction);

@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import { addExpense } from "../actions/expenses";
+import { v4 as uuidv4 } from "uuid";
 
-export const AddTransaction = () => {
+const AddTransaction = (props) => {
+  const [text, setText] = useState("");
+  const [amount, setAmount] = useState(0);
+
   const onSubmit = (e) => {
     e.preventDefault();
 
     const newTransaction = {
-      id: Math.floor(Math.random() * 100000000),
-      // text,
-      // amount: +amount,
+      id: uuidv4(),
+      text: text,
+      amount: +amount,
     };
 
-    // addTransaction(newTransaction);
+    props.dispatch(addExpense(newTransaction));
   };
 
   return (
@@ -21,8 +27,8 @@ export const AddTransaction = () => {
           <label htmlFor="text">Text</label>
           <input
             type="text"
-            // value={text}
-            // onChange={(e) => setText(e.target.value)}
+            value={text}
+            onChange={(e) => setText(e.target.value)}
             placeholder="Enter text..."
           />
         </div>
@@ -32,8 +38,8 @@ export const AddTransaction = () => {
           </label>
           <input
             type="number"
-            // value={amount}
-            // onChange={(e) => setAmount(e.target.value)}
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
             placeholder="Enter amount..."
           />
         </div>
@@ -42,3 +48,5 @@ export const AddTransaction = () => {
     </>
   );
 };
+
+export default connect()(AddTransaction);

@@ -1,17 +1,11 @@
 import { v4 as uuidv4 } from "uuid";
 
-export const addExpense = ({
-  description = "",
-  note = "",
-  amount = 0,
-  createdAt = 0,
-} = {}) => {
+export const addExpense = ({ text = "", amount = 0, createdAt = 0 } = {}) => {
   return {
     type: "ADD_EXPENSE",
     expense: {
       id: uuidv4(),
-      description: description,
-      note: note,
+      text: text,
       amount: amount,
       createdAt: createdAt,
     },

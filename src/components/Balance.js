@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 
 function moneyFormatter(num) {
   let p = num.toFixed(2).split(".");
@@ -16,17 +17,23 @@ function moneyFormatter(num) {
   );
 }
 
-export const Balance = () => {
-  // const { transactions } = useContext(GlobalContext);
+const Balance = (props) => {
+  const amounts = props.transactions.map((transaction) => transaction.amount);
 
-  // const amounts = transactions.map((transaction) => transaction.amount);
-
-  // const total = amounts.reduce((acc, item) => (acc += item), 0);
+  const total = amounts.reduce((acc, item) => (acc += item), 0);
 
   return (
     <>
       <h4>Your Balance</h4>
-      <h1>{moneyFormatter(1000)}</h1>
+      <h1>{moneyFormatter(total)}</h1>
     </>
   );
 };
+
+const mapPropsToState = (state) => {
+  return {
+    transactions: state.expenses,
+  };
+};
+
+export default connect(mapPropsToState)(Balance);

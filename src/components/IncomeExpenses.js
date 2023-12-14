@@ -1,6 +1,6 @@
 import React from "react";
+import { connect } from "react-redux";
 
-//Money formatter function
 function moneyFormatter(num) {
   let p = num.toFixed(2).split(".");
   return (
@@ -16,29 +16,35 @@ function moneyFormatter(num) {
   );
 }
 
-export const IncomeExpenses = () => {
-  // const { transactions } = useContext(GlobalContext);
+export const IncomeExpenses = (props) => {
+  const amounts = props.transactions.map((transaction) => transaction.amount);
 
-  // const amounts = transactions.map((transaction) => transaction.amount);
+  const income = amounts
+    .filter((item) => item > 0)
+    .reduce((acc, item) => (acc += item), 0);
 
-  // const income = amounts
-  //   .filter((item) => item > 0)
-  //   .reduce((acc, item) => (acc += item), 0);
-
-  // const expense =
-  //   amounts.filter((item) => item < 0).reduce((acc, item) => (acc += item), 0) *
-  //   -1;
+  const expense =
+    amounts.filter((item) => item < 0).reduce((acc, item) => (acc += item), 0) *
+    -1;
 
   return (
     <div className="inc-exp-container">
       <div>
         <h4>Income</h4>
-        <p className="money plus">{moneyFormatter(100)}</p>
+        <p className="money plus">{moneyFormatter(income)}</p>
       </div>
       <div>
         <h4>Expense</h4>
-        <p className="money minus">{moneyFormatter(100)}</p>
+        <p className="money minus">{moneyFormatter(expense)}</p>
       </div>
     </div>
   );
 };
+
+const mapStateToProps = (state) => {
+  return {
+    transactions: state.expenses,
+  };
+};
+
+export default connect(mapStateToProps)(IncomeExpenses);
