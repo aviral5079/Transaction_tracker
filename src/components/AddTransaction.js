@@ -18,7 +18,7 @@ const AddTransaction = (props) => {
       id: uuidv4(),
       text: text,
       amount: +amount,
-      createdAt: createdAt.toDateString(),
+      createdAt: createdAt.getTime(),
     };
 
     props.dispatch(addExpense(newTransaction));

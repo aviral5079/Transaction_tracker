@@ -24,7 +24,7 @@ const Transaction = (props) => {
   return (
     <li className={props.amount < 0 ? "minus" : "plus"}>
       <span>{props.text} </span>
-      <span>{props.createdAt} </span>
+      <span>{new Date(props.createdAt).toDateString()} </span>
       <span>
         {sign}
         {moneyFormatter(props.amount)}
