@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import getVisibleExpenses from "../selectors/expenses";
 
 function moneyFormatter(num) {
   let p = num.toFixed(2).split(".");
@@ -43,7 +44,7 @@ export const IncomeExpenses = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    transactions: state.expenses,
+    transactions: getVisibleExpenses(state.expenses, state.filters),
   };
 };
 

@@ -21,12 +21,22 @@ body {
 
 .container {
   margin: 30px auto;
-  width: 350px;
+  width: 1000px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.mainbar {
+  width: 400px;
 }
 
 h1 {
   letter-spacing: 1px;
   margin: 0;
+}
+
+h2 {
+  text-align: center;
 }
 
 h3 {
@@ -78,7 +88,8 @@ label {
 }
 
 input[type="text"],
-input[type="number"] {
+input[type="number"],
+select {
   border: 1px solid #dedede;
   border-radius: 2px;
   display: block;
@@ -109,6 +120,9 @@ input[type="number"] {
   list-style-type: none;
   padding: 0;
   margin-bottom: 40px;
+  height: 250px;
+  overflow: hidden;
+  overflow-y: auto;
 }
 
 .list li {

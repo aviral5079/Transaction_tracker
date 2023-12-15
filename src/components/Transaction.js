@@ -19,12 +19,12 @@ function moneyFormatter(num) {
 }
 
 const Transaction = (props) => {
-  console.log(props);
   const sign = props.amount < 0 ? "-" : "+";
 
   return (
     <li className={props.amount < 0 ? "minus" : "plus"}>
-      {props.text}{" "}
+      <span>{props.text} </span>
+      <span>{props.createdAt} </span>
       <span>
         {sign}
         {moneyFormatter(props.amount)}
