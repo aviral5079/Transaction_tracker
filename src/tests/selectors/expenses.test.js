@@ -1,25 +1,5 @@
 import getVisibleExpenses from "../../selectors/expenses";
-
-const expenses = [
-  {
-    id: "1",
-    text: "Coffee",
-    amount: 195,
-    createdAt: 0,
-  },
-  {
-    id: "2",
-    text: "Rent",
-    amount: 10000,
-    createdAt: -1000,
-  },
-  {
-    id: "3",
-    text: "Credit Card",
-    amount: 4500,
-    createdAt: 1000,
-  },
-];
+import { expenses } from "../fixtures/expenses";
 
 test("shoudld filter by text value", () => {
   const filters = {
